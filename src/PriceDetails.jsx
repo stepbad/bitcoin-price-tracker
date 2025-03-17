@@ -1,15 +1,16 @@
 import React from "react";
+import { FaDollarSign, FaEuroSign, FaPoundSign } from "react-icons/fa";
 
 const PriceDetails = ({ prices, loading }) => {
   return (
     <div className="price-card">
       {loading ? (
-        <p>Loading prices...</p>
+        <div className="loader"></div> 
       ) : (
         <>
-          <p> <strong>USD:</strong> ${prices.usd}</p>
-          <p> <strong>EUR:</strong> €{prices.eur}</p>
-          <p> <strong>GBP:</strong> £{prices.gbp}</p>
+          <p><FaDollarSign /> <strong>USD:</strong> ${prices.usd}</p>
+          <p><FaEuroSign /> <strong>EUR:</strong> €{prices.eur}</p>
+          <p><FaPoundSign /> <strong>GBP:</strong> £{prices.gbp}</p>
         </>
       )}
     </div>

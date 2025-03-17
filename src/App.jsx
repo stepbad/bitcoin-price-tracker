@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState, useEffect } from "react";
+import PriceDetails from "./PriceDetails";
 
-function App() {
-  const [count, setCount] = useState(0)
+const API_URL = "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd,eur,gbp";
+
+const App = () => {
+  const [prices, setPrices] = useState({ usd: 0, eur: 0, gbp: 0 });
+  const [loading, setLoading] = useState(true);
+
+  const fetchPrices = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch(API_URL);
+      const data = await response.json();
+      setPrices(data.bitcoin);
+    } catch (error) {
+      console.error("Error fetching Bitcoin prices:", error);
+    }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchPrices();
+    const interval = setInterval(fetchPrices, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="app">
+      <h1>Bitcoin Price Tracker</h1>
+      <PriceDetails prices={prices} loading={loading} />
+      <button onClick={fetchPrices} className="refresh-btn">Refresh Price</button>
+    </div>
+  );
+};
 
-export default App
+export default App;

@@ -9,6 +9,11 @@ body {
   padding: 0;
 }
 
+@keyframes colorTransition {
+  0% { background: linear-gradient(45deg, #121212, #222, #1e1e1e); }
+  100% { background: linear-gradient(45deg, #1e1e1e, #222, #121212); }
+}
+
 .app {
   margin: 50px auto;
   padding: 20px;
@@ -17,7 +22,56 @@ body {
   box-shadow: 0px 4px 15px rgba(255, 215, 0, 0.2);
   width: 320px;
   text-align: center;
+  transition: background 1s ease-in-out;
 }
+
+.logo {
+  font-size: 30px;
+  color: #f2a900;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+  display: inline-block;
+  animation: fadeIn 2s ease-in-out;
+}
+
+#firstLogoLetter, #secondLogoLetter {
+  display: inline-block;
+  animation: bounce 1s infinite alternate;
+}
+
+#firstLogoLetter {
+  color: #9091bd;
+  animation-delay: 0.2s;
+}
+
+#secondLogoLetter {
+  color: #2aee75;
+  animation-delay: 0.4s;
+}
+
+/* Bouncing effect for logo */
+@keyframes bounce {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-5px);
+  }
+}
+
+/* Fade in effect */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
 h1 {
   font-size: 24px;

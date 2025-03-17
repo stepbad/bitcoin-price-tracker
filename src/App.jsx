@@ -16,7 +16,7 @@ const App = () => {
       const response = await fetch(API_URL);
       const data = await response.json();
       setPrices(data.bitcoin);
-      setLastUpdated(dayjs().format("HH:mm:ss"));
+      setLastUpdated(dayjs().format("HH:mm:ss")); // Store current time
     } catch (error) {
       console.error("Error fetching Bitcoin prices:", error);
     }
@@ -31,6 +31,10 @@ const App = () => {
 
   return (
     <div className="app">
+      <div className="logo">
+        <span id="firstLogoLetter">S</span>tep
+        <span id="secondLogoLetter">B</span>ad
+      </div>
       <h1><FaBitcoin /> Bitcoin Price Tracker</h1>
       <PriceDetails prices={prices} loading={loading} />
       <p className="timestamp">Last Updated: {lastUpdated || "Fetching..."}</p>
